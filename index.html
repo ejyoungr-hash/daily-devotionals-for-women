@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>Daily Devotionals for Women</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    color-scheme:light;
+    --bg:#faf6ec;
+    --bg-soft:#f3eddb;
+    --card:#fffdf7;
+    --card-2:#f7f1e0;
+    --ink:#2f362b;
+    --ink-soft:#4d5747;
+    --muted:#7d8772;
+    --line:#e0d5b8;
+    --line-strong:#c8b98f;
+    --gold:#a07d24;
+    --gold-strong:#86661a;
+    --gold-soft:#f6ead0;
+    --sage:#5c7a52;
+    --sage-strong:#48633f;
+    --sage-bg:#6d8c60;
+    --sage-soft:#e4ebda;
+    --shadow:0 10px 28px rgba(94,82,40,.12), 0 2px 6px rgba(94,82,40,.08);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1060px; margin:0 auto; padding:0 20px 72px}
+
+  /* ---------- Top menu ---------- */
+  .menu-bar{
+    position:sticky; top:0; z-index:50;
+    background:var(--bg);
+    padding:12px 20px 10px;
+  }
+  nav.menu{
+    max-width:1020px; margin:0 auto;
+    background:var(--card); border:1px solid var(--line-strong); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:7px;
+    display:flex; flex-wrap:wrap; gap:4px; align-items:center;
+  }
+  nav.menu .menu-label{
+    font-size:.76rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--gold); padding:0 8px 0 12px; white-space:nowrap;
+  }
+  nav.menu a{
+    color:var(--ink-soft); text-decoration:none; font-weight:700; font-size:.9rem;
+    padding:9px 13px; border-radius:10px; white-space:nowrap; display:inline-flex; align-items:center; min-height:38px;
+  }
+  nav.menu a:hover{background:var(--bg-soft); color:var(--ink)}
+  nav.menu a.week-link{background:var(--sage-soft); color:var(--sage-strong)}
+  nav.menu a.week-link:hover{background:var(--sage-soft); color:var(--sage-strong); text-decoration:underline}
+  nav.menu a.moon-link{background:var(--gold-soft); color:var(--gold-strong)}
+  nav.menu a.moon-link:hover{background:var(--gold-soft); color:var(--gold-strong); text-decoration:underline}
+  .anchor{scroll-margin-top:96px}
+
+  /* ---------- Header ---------- */
+  header.top{padding:34px 0 8px}
+  .dateline{display:flex; flex-wrap:wrap; align-items:center; gap:10px; color:var(--muted); font-size:.86rem; font-weight:600; letter-spacing:.02em}
+  .dateline .dot{width:4px;height:4px;border-radius:50%;background:var(--line-strong)}
+  h1{
+    font-family:"Newsreader", Georgia, serif; font-weight:600;
+    font-size:clamp(2.1rem, 5.4vw, 3.3rem); line-height:1.06; letter-spacing:-.01em;
+    margin:12px 0 10px; max-width:17ch;
+  }
+  .lede{font-size:1.06rem; color:var(--ink-soft); max-width:58ch; margin:0}
+  .lede strong{color:var(--ink)}
+
+  /* ---------- Today's devotional ---------- */
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin:38px 0 14px; flex-wrap:wrap}
+  .section-head h2{font-family:"Newsreader", Georgia, serif; font-size:1.65rem; font-weight:600; margin:0}
+  .section-head p{margin:0; color:var(--muted); font-size:.92rem}
+  .today-card{
+    background:var(--card); border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .today-banner{
+    background:var(--sage-bg); color:#fbfaf2; padding:18px 24px; display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; justify-content:space-between;
+  }
+  .today-banner .tb-left{display:flex; align-items:center; gap:12px; min-width:0}
+  .sun-ic{flex:none; width:38px; height:38px; border-radius:12px; background:rgba(255,255,255,.18); display:grid; place-items:center}
+  .today-banner .tb-kicker{font-size:.74rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; opacity:.88; margin:0}
+  .today-banner .tb-title{font-family:"Newsreader", Georgia, serif; font-size:1.35rem; font-weight:600; margin:1px 0 0; line-height:1.15}
+  .today-banner .tb-date{font-size:.9rem; font-weight:600; opacity:.92; white-space:nowrap}
+  .today-body{padding:24px}
+
+  .passage{
+    background:var(--card-2); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin:0 0 20px;
+  }
+  .passage .ref{font-size:.78rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--gold-strong); margin:0 0 8px}
+  .passage blockquote{
+    margin:0; font-family:"Newsreader", Georgia, serif; font-size:1.22rem; line-height:1.5; font-style:italic; font-weight:500;
+  }
+  .passage .version + .version{margin-top:15px; padding-top:15px; border-top:1px solid var(--line)}
+  .passage .version-label{
+    font-size:.74rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--sage); margin:0 0 5px;
+  }
+  .passage .version blockquote{font-size:1.13rem}
+  .block-label{font-size:.78rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--gold-strong); margin:22px 0 7px}
+  .block-label:first-of-type{margin-top:0}
+  .dev-text{margin:0; color:var(--ink-soft); font-size:1.02rem; line-height:1.7}
+  .dev-text + .dev-text{margin-top:12px}
+  .action-box{
+    margin-top:22px; border:1px solid var(--line-strong); border-radius:14px; padding:16px 18px;
+    background:var(--gold-soft);
+  }
+  .action-box .block-label{margin-top:0; color:var(--gold-strong)}
+  .action-box p{margin:0; color:var(--ink); line-height:1.65}
+
+  button{font:inherit; cursor:pointer}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; border-radius:999px; padding:10px 18px; min-height:42px;
+    font-weight:700; font-size:.92rem; border:1px solid var(--line-strong); background:var(--card); color:var(--ink);
+    transition:transform .12s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .btn.primary{background:var(--gold); border-color:var(--gold); color:#fffdf4}
+  .btn.primary:hover{background:var(--gold-strong)}
+  .btn svg{flex:none}
+
+  /* ---------- Week 1 archive rows ---------- */
+  .controls{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:6px 0 18px;
+  }
+  .search{
+    flex:1 1 240px; display:flex; align-items:center; gap:9px; background:var(--card);
+    border:1px solid var(--line); border-radius:999px; padding:9px 15px; min-height:44px;
+  }
+  .search:focus-within{border-color:var(--gold); outline:2px solid var(--gold-soft); outline-offset:1px}
+  .search svg{flex:none; color:var(--muted)}
+  .search input{border:0; outline:0; background:transparent; color:var(--ink); font:inherit; font-size:.95rem; width:100%; min-width:0}
+  .search input::placeholder{color:var(--muted)}
+
+  .grid{display:flex; flex-direction:column; gap:10px}
+  .day-card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+    display:flex; align-items:flex-start; gap:14px; text-align:left; width:100%;
+    box-shadow:none; transition:background .15s ease, border-color .15s ease;
+    color:var(--ink); cursor:pointer; font:inherit;
+  }
+  .day-card:hover{background:var(--card-2); border-color:var(--line-strong)}
+  .day-card.selected{border-color:var(--sage); background:var(--sage-soft)}
+  .day-card .day-badge{flex:none; margin-top:3px; white-space:nowrap}
+  .dc-main{flex:1 1 auto; min-width:0}
+  .day-badge{
+    display:inline-flex; align-items:center; gap:7px; font-size:.76rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
+    background:var(--gold-soft); color:var(--gold-strong); border-radius:999px; padding:5px 11px;
+  }
+  .day-badge.today{background:var(--sage-bg); color:#fbfaf2}
+  .day-card h3{font-family:"Newsreader", Georgia, serif; font-size:1.2rem; font-weight:600; line-height:1.25; margin:0 0 3px}
+  .dc-ref{font-size:.88rem; font-weight:700; color:var(--gold-strong); margin:0 0 4px}
+  .dc-excerpt{font-size:.92rem; color:var(--ink-soft); line-height:1.55; margin:0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+  .dc-status{font-size:.82rem; font-weight:700; color:var(--sage); display:inline-flex; align-items:center; gap:6px; margin-top:6px}
+  .empty{
+    border:1.5px dashed var(--line-strong); border-radius:var(--radius); padding:34px 22px; text-align:center; color:var(--muted);
+    width:100%; background:var(--card); margin-top:6px;
+  }
+  .empty strong{color:var(--ink); display:block; font-family:"Newsreader", Georgia, serif; font-size:1.2rem; margin-bottom:5px}
+
+  /* ---------- Reader ---------- */
+  .reader[hidden]{display:none}
+  .reader{
+    margin-top:34px; background:var(--card); border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); overflow:hidden;
+  }
+  .reader-head{
+    padding:20px 24px; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start; justify-content:space-between;
+    background:var(--card-2);
+  }
+  .reader-head h2{font-family:"Newsreader", Georgia, serif; font-size:1.7rem; font-weight:600; margin:4px 0 3px; line-height:1.15}
+  .reader-head .rh-meta{color:var(--muted); font-size:.9rem; font-weight:600; margin:0}
+  .reader-body{padding:24px}
+  .reader-nav{display:flex; gap:10px; flex-wrap:wrap}
+
+  /* ---------- Other sites ---------- */
+  .site-list{display:flex; flex-direction:column; gap:10px; margin:0; padding:0; list-style:none}
+  .site-list a{
+    background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; display:flex; gap:14px; align-items:center; width:100%;
+    text-decoration:none; color:var(--ink); transition:background .15s ease, border-color .15s ease; min-height:56px;
+  }
+  .site-list a:hover{background:var(--card-2); border-color:var(--line-strong)}
+  .site-list a > div{flex:1 1 auto; min-width:0}
+  .site-list .st{font-weight:700; font-size:.98rem; line-height:1.35; font-family:"Newsreader", Georgia, serif; font-size:1.1rem}
+  .site-list .sd{font-size:.86rem; color:var(--muted); margin-top:2px}
+  .site-list .arrow{flex:none; color:var(--gold-strong); font-weight:800}
+
+  footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; display:flex; flex-wrap:wrap; gap:8px 18px; justify-content:space-between}
+  footer p{margin:0}
+
+  :focus-visible{outline:2px solid var(--gold); outline-offset:2px; border-radius:6px}
+  @media (max-width:640px){
+    .wrap{padding:0 15px 56px}
+    .menu-bar{padding:10px 15px 8px}
+    .anchor{scroll-margin-top:150px}
+    header.top{padding-top:24px}
+    .today-body,.reader-body{padding:19px}
+    .today-banner,.reader-head{padding-left:19px; padding-right:19px}
+    .day-card{gap:10px; padding:14px}
+    .day-card .day-badge{font-size:.68rem; padding:4px 8px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+<div class="menu-bar">
+  <nav class="menu" aria-label="Page menu">
+    <span class="menu-label">Menu</span>
+    <a href="#today" id="todayMenuLink">Today</a>
+    <a href="#week" class="week-link">Week 1 — all seven days</a>
+    <a href="#other">Other sites</a>
+    <a href="https://ejyoungr-hash.github.io/moon/" class="moon-link" target="_blank" rel="noopener">Moon site ↗</a>
+  </nav>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="dateline">
+      <span>Sunday, November 22, 2026</span><span class="dot" aria-hidden="true"></span>
+      <span>Week 1 · November 22–28, 2026</span>
+    </div>
+    <h1>Daily Devotionals for Women</h1>
+    <p class="lede">Welcome. This is home base for daily devotionals for women — <strong>today's reading up top</strong>, and all seven days of Week 1 below so you can return to any of them.</p>
+  </header>
+
+  <!-- TODAY -->
+  <div class="section-head anchor" id="today">
+    <h2>Today's devotional</h2>
+    <p>About 10–15 minutes to read and reflect</p>
+  </div>
+  <article class="today-card" id="todayCard" aria-label="Today's devotional"></article>
+
+  <!-- WEEK 1 / ARCHIVE -->
+  <div class="section-head anchor" id="week">
+    <h2>Week 1 — all seven days</h2>
+    <p>Tap any day to open it in the reader</p>
+  </div>
+  <div class="controls">
+    <label class="search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg>
+      <input type="search" id="searchInput" placeholder="Search a theme or passage — try “peace” or “thanks”" aria-label="Search devotionals" />
+    </label>
+    <button class="btn" id="randomBtn" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+      Revisit a day
+    </button>
+  </div>
+  <div class="grid" id="archiveGrid" aria-live="polite"></div>
+
+  <!-- READER — hidden on load so today's devotional is not shown a second time;
+       it appears only when a day is opened from the Week 1 rows. -->
+  <section class="reader anchor" id="reader" aria-label="Devotional reader" hidden>
+    <div class="reader-head">
+      <div>
+        <span class="day-badge" id="readerBadge">Day 1</span>
+        <h2 id="readerTitle">Fearfully and wonderfully made</h2>
+        <p class="rh-meta" id="readerMeta">Sunday, November 22, 2026 · Psalm 139:14</p>
+      </div>
+      <div class="reader-nav">
+        <button class="btn" id="prevBtn" type="button">← Previous day</button>
+        <button class="btn" id="nextBtn" type="button">Next day →</button>
+      </div>
+    </div>
+    <div class="reader-body" id="readerBody"></div>
+  </section>
+
+  <!-- OTHER SITES -->
+  <div class="section-head anchor" id="other">
+    <h2>Other sites</h2>
+    <p>More to visit</p>
+  </div>
+  <ul class="site-list">
+    <li>
+      <a href="https://ejyoungr-hash.github.io/moon/" target="_blank" rel="noopener">
+        <div>
+          <div class="st">The Moon</div>
+          <div class="sd">Tonight's moon, the eight phases, and a gallery of favorite views.</div>
+        </div>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://ejyoungr-hash.github.io/daily-devotionals-for-men/" target="_blank" rel="noopener">
+        <div>
+          <div class="st">Daily Devotionals for Men</div>
+          <div class="sd">The companion daily devotional series for men.</div>
+        </div>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://ejyoungr-hash.github.io/family-devotional/" target="_blank" rel="noopener">
+        <div>
+          <div class="st">Family Devotional</div>
+          <div class="sd">Daily devotionals for the whole family to read together.</div>
+        </div>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://ejyoungr-hash.github.io/teenager-devotional/" target="_blank" rel="noopener">
+        <div>
+          <div class="st">Teenager Devotional</div>
+          <div class="sd">Daily devotionals for teenagers.</div>
+        </div>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </li>
+  </ul>
+
+  <footer>
+    <p>Daily Devotionals for Women — daily readings for women in their faith, their families, and their everyday lives.</p>
+    <p>Week 1 · November 22–28, 2026</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var DAYS = [
+    {
+      day: 1,
+      date: "Sunday, November 22, 2026",
+      shortDate: "Sun, Nov 22",
+      title: "Fearfully and wonderfully made",
+      ref: "Psalm 139:14",
+      verseKJV: "\u201CI will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.\u201D",
+      verseESV: "\u201CI praise you, for I am fearfully and wonderfully made. Wonderful are your works; my soul knows it very well.\u201D",
+      verseNLT: "\u201CThank you for making me so wonderfully complex! Your workmanship is marvelous\u2014how well I know it.\u201D",
+      thought: "It is easy for a woman to measure herself against everyone else \u2014 other mothers, other wives, other women at work, other faces on a screen \u2014 and come away feeling like she falls short. The comparison never stops, and it never satisfies. But this verse starts somewhere entirely different. It does not ask how she measures up. It says she was made, on purpose, by a God whose work is marvellous.\n\n\u201CFearfully and wonderfully made\u201D means the care that went into her was not casual. Her mind, her heart, her gifts, even the parts of herself she wishes were different \u2014 all of it was shaped by hands that knew exactly what they were doing. Her worth was settled before she ever did a single thing to earn it.\n\nSo today, the invitation is simple: stop grading herself against someone else's life. The same God who made the sunrise made her, and He does not make mistakes. When she believes that, really believes it, she can walk into her day without apologizing for who she is.",
+      prayer: "Lord, I spend so much of my time wishing I were someone else. Help me believe today that I am fearfully and wonderfully made \u2014 that your work in me is marvellous, and that I do not need to earn my worth. Teach me to see myself the way you see me.",
+      action: "Write down three things about herself that she is grateful God gave her \u2014 a gift, a strength, a part of who she is \u2014 and read them back to herself before the day is over.",
+      today: true
+    },
+    {
+      day: 2,
+      date: "Monday, November 23, 2026",
+      shortDate: "Mon, Nov 23",
+      title: "Strength and dignity",
+      ref: "Proverbs 31:25",
+      verseKJV: "\u201CStrength and honour are her clothing; and she shall rejoice in time to come.\u201D",
+      verseESV: "\u201CStrength and dignity are her clothing, and she laughs at the time to come.\u201D",
+      verseNLT: "\u201CShe is clothed with strength and dignity, and she laughs without fear of the future.\u201D",
+      thought: "A woman's strength is not always loud. Sometimes it looks like getting up early to care for a household before anyone else is awake. Sometimes it looks like holding a family together through a hard season, or standing firm in a workplace that does not always make room for her. The strength in this verse is not about never feeling tired or afraid. It is about what she wears \u2014 what she carries with her, day after day.\n\nDignity is the quiet companion of that strength. It means she does not have to prove herself by tearing others down, or by chasing after every new standard the world sets for her. She knows who she is, and whose she is, and that is enough to stand tall.\n\nAnd then there is the future. She \u201Claughs at the time to come\u201D \u2014 not because she knows what is coming, but because she knows who is coming with her. A woman clothed in strength and dignity does not have to fear tomorrow. She can face it with her head up.",
+      prayer: "Lord, clothe me today with strength and dignity. When I feel small or overlooked, remind me of who I am in you. Help me face tomorrow without fear, trusting that you are already there.",
+      action: "Do one thing today that she has been putting off because it felt too hard or too big \u2014 and do it knowing God goes with her."
+    },
+    {
+      day: 3,
+      date: "Tuesday, November 24, 2026",
+      shortDate: "Tue, Nov 24",
+      title: "Peace for an anxious heart",
+      ref: "Isaiah 26:3",
+      verseKJV: "\u201CThou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee.\u201D",
+      verseESV: "\u201CYou keep him in perfect peace whose mind is stayed on you, because he trusts in you.\u201D",
+      verseNLT: "\u201CYou will keep in perfect peace all who trust in you, all whose thoughts are fixed on you!\u201D",
+      thought: "Anxiety is a familiar companion for many women. The list never ends \u2014 the children, the home, the job, the bills, the people she loves, the things she cannot control. Her mind runs ahead to every what-if, and peace feels a long way off. But this verse does not promise peace to the woman who has everything figured out. It promises peace to the one whose mind is stayed on God.\n\n\u201CStayed\u201D is a steady word. It is not about a single prayer in a moment of panic. It is about where her thoughts keep returning, again and again, through the day. When worry pulls her mind in a dozen directions, she can gently bring it back \u2014 back to what is true, back to who God is, back to the fact that He is holding what she cannot hold.\n\nPerfect peace does not mean a perfect life. It means a settled heart in the middle of an unsettled life. And that peace is kept \u2014 guarded, held safe \u2014 by God himself, for the woman who trusts him.",
+      prayer: "Lord, my mind races ahead to everything that could go wrong. Keep me in your perfect peace today. When worry rises, help me turn my thoughts back to you and trust that you are in control.",
+      action: "Each time an anxious thought comes today, pause, take a slow breath, and say quietly, \u201CGod, I trust you with this.\u201D Do it as many times as it takes."
+    },
+    {
+      day: 4,
+      date: "Wednesday, November 25, 2026",
+      shortDate: "Wed, Nov 25",
+      title: "Words that build up",
+      ref: "Ephesians 4:29",
+      verseKJV: "\u201CLet no corrupt communication proceed out of your mouth, but that which is good to the use of edifying, that it may minister grace unto the hearers.\u201D",
+      verseESV: "\u201CLet no corrupting talk come out of your mouths, but only such as is good for building up, as fits the occasion, that it may give grace to those who hear.\u201D",
+      verseNLT: "\u201CDon't use foul or abusive language. Let everything you say be good and helpful, so that your words will be an encouragement to those who hear them.\u201D",
+      thought: "A woman's words carry more weight than she often realizes. She speaks to her children, her husband, her friends, her co-workers \u2014 and her words can either build them up or quietly tear them down. A careless word in a tired moment can linger for days. But a kind word, spoken at the right time, can carry someone through a week.\n\nThis verse sets a simple test for every word before it leaves her mouth: is it good for building up? Does it fit this moment? Will it give grace to the person who hears it? That is a high standard, and she will not meet it perfectly. But aiming for it changes the atmosphere of a home, a friendship, a workplace.\n\nHer words are also the words she speaks to herself. The same standard applies there. If she would not say it to a friend she loves, she should not say it to herself either. Grace-filled words begin at home \u2014 in her own heart first.",
+      prayer: "Lord, put a guard over my words today. Help me speak in a way that builds up the people around me and gives them grace. And help me speak kindly to myself, too, with the same grace you give me.",
+      action: "Speak one intentional word of encouragement to someone today \u2014 something specific and true \u2014 and notice what it does to them."
+    },
+    {
+      day: 5,
+      date: "Thursday, November 26, 2026",
+      shortDate: "Thu, Nov 26",
+      title: "Give thanks in everything",
+      ref: "1 Thessalonians 5:18",
+      verseKJV: "\u201CIn every thing give thanks: for this is the will of God in Christ Jesus concerning you.\u201D",
+      verseESV: "\u201CGive thanks in all circumstances; for this is the will of God in Christ Jesus for you.\u201D",
+      verseNLT: "\u201CBe thankful in all circumstances, for this is God's will for you who belong to Christ Jesus.\u201D",
+      thought: "Thanksgiving is a day for counting blessings, but this verse asks for something harder than a holiday habit. It says give thanks in everything \u2014 in all circumstances. Not only when life is going well, and not only for the things that feel like blessings. In everything. That is not pretending hard things are good. It is choosing to believe that God is good even when circumstances are not.\n\nA thankful woman is not a woman with an easy life. She is a woman who has learned to look for God's hand in the middle of an ordinary, sometimes difficult day \u2014 in a meal shared, in a child's laugh, in strength she did not know she had, in a door that opened when another one closed. Gratitude does not change her circumstances. It changes her eyes.\n\nAnd gratitude is contagious. A home where thanks is spoken out loud is a different home from one where complaints fill the air. A woman who gives thanks teaches everyone around her to see God's goodness too.",
+      prayer: "Lord, thank you \u2014 not just for the easy things, but for your goodness in all things. Open my eyes today to the blessings I usually walk right past. Make my heart thankful, even in the hard places.",
+      action: "Before the day ends, name five specific things she is thankful for today \u2014 out loud, to someone else if she can \u2014 including one thing from a hard part of her life."
+    },
+    {
+      day: 6,
+      date: "Friday, November 27, 2026",
+      shortDate: "Fri, Nov 27",
+      title: "God is her refuge",
+      ref: "Psalm 46:5",
+      verseKJV: "\u201CGod is in the midst of her; she shall not be moved: God shall help her, and that right early.\u201D",
+      verseESV: "\u201CGod is in the midst of her; she shall not be moved; God will help her when morning dawns.\u201D",
+      verseNLT: "\u201CGod dwells in that city; it cannot be destroyed. From the very break of day, God will protect it.\u201D",
+      thought: "There are days when a woman feels like she is holding everything together with her own two hands \u2014 and that if she lets go for even a moment, it will all fall apart. The pressure is real. The needs are real. And the fear underneath it all is real too: what if I am not enough for all of this?\n\nThis verse speaks straight into that fear. God is in the midst of her. Not far away, not watching from a distance, not waiting for her to get it together first. He is right there, in the middle of her life, in the middle of the mess, in the middle of the morning rush and the late-night worry. And because He is there, she shall not be moved.\n\nShe does not have to hold everything together. She is held. God will help her \u2014 and not eventually, not someday, but at the break of day, right when she needs it. A woman who knows God is her refuge can stand steady, because her steadiness does not depend on her own strength.",
+      prayer: "Lord, I feel like I am holding so much together on my own. Remind me today that you are in the midst of it all with me, and that I will not be moved because you are holding me. Help me rest in you as my refuge.",
+      action: "When the pressure rises today, stop for one minute, close her eyes, and remind herself: \u201CGod is in the midst of this with me. I will not be moved.\u201D"
+    },
+    {
+      day: 7,
+      date: "Saturday, November 28, 2026",
+      shortDate: "Sat, Nov 28",
+      title: "Trust God with tomorrow",
+      ref: "Matthew 6:34",
+      verseKJV: "\u201CTake therefore no thought for the morrow: for the morrow shall take thought for the things of itself. Sufficient unto the day is the evil thereof.\u201D",
+      verseESV: "\u201CTherefore do not be anxious about tomorrow, for tomorrow will be anxious for itself. Sufficient for the day is its own trouble.\u201D",
+      verseNLT: "\u201CSo don't worry about tomorrow, for tomorrow will bring its own worries. Today's trouble is enough for today.\u201D",
+      thought: "Tomorrow has a way of stealing today. A woman can be sitting with her family, or finishing her work, or lying in bed at night, and her mind is already three steps ahead \u2014 worrying about next week, next month, next year. The future feels like something she has to solve right now, or it will all go wrong. But Jesus says something freeing: tomorrow will take care of itself.\n\nThat does not mean she should not plan or prepare. It means she does not have to carry tomorrow's weight today. God gives grace for today \u2014 today's trouble, today's decisions, today's needs. Tomorrow's grace will come tomorrow, when tomorrow arrives. Worrying about it now only spends today's strength on a day that has not happened yet.\n\nSo today, she can lay tomorrow down. She can trust the God who has been faithful every day before this one to be faithful again tomorrow. Her job is today. His job is tomorrow.",
+      prayer: "Lord, I keep borrowing trouble from tomorrow and carrying it today. Help me lay it down. Give me grace for today, and teach me to trust you with tomorrow \u2014 because you have never failed me yet.",
+      action: "Write down the one worry about tomorrow that keeps circling her mind, then set it aside \u2014 literally put the paper away \u2014 and spend the rest of today fully present in today."
+    }
+  ];
+
+  var currentDay = 1;
+
+  function byId(id){ return document.getElementById(id); }
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function paras(text){
+    return text.split("\n\n").map(function(p){ return '<p class="dev-text">' + esc(p) + '</p>'; }).join("");
+  }
+  function devotionalBodyHTML(d){
+    var h = "";
+    h += '<div class="passage"><p class="ref">The passage \u2014 ' + esc(d.ref) + '</p>' +
+      '<div class="version"><p class="version-label">KJV</p><blockquote>' + esc(d.verseKJV) + '</blockquote></div>' +
+      '<div class="version"><p class="version-label">ESV</p><blockquote>' + esc(d.verseESV) + '</blockquote></div>' +
+      '<div class="version"><p class="version-label">NLT</p><blockquote>' + esc(d.verseNLT) + '</blockquote></div></div>';
+    h += '<p class="block-label">A short thought</p>' + paras(d.thought);
+    h += '<p class="block-label">A prayer</p><p class="dev-text">' + esc(d.prayer) + '</p>';
+    h += '<div class="action-box"><p class="block-label">One thing to do today</p><p>' + esc(d.action) + '</p></div>';
+    return h;
+  }
+
+  /* ----- Today card ----- */
+  function renderToday(){
+    var d = DAYS.filter(function(x){ return x.today; })[0];
+    byId("todayCard").innerHTML =
+      '<div class="today-banner"><div class="tb-left">' +
+        '<span class="sun-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>' +
+        '<div><p class="tb-kicker">Today \u00b7 Day ' + d.day + '</p><p class="tb-title">' + esc(d.title) + '</p></div>' +
+      '</div><span class="tb-date">' + esc(d.date) + '</span></div>' +
+      '<div class="today-body">' + devotionalBodyHTML(d) + '</div>';
+  }
+
+  /* ----- Week 1 rows ----- */
+  function excerptFor(d){
+    return d.thought.split("\n\n")[0];
+  }
+  function matchesSearch(d, q){
+    if (!q) return true;
+    var hay = (d.title + " " + d.ref + " " + d.thought + " " + d.verseKJV + " " + d.verseESV + " " + d.verseNLT + " day " + d.day).toLowerCase();
+    return hay.indexOf(q) !== -1;
+  }
+  function renderGrid(){
+    var q = byId("searchInput").value.trim().toLowerCase();
+    var grid = byId("archiveGrid");
+    var list = DAYS.filter(function(d){ return matchesSearch(d, q); });
+    if (!list.length){
+      grid.innerHTML = '<div class="empty"><strong>No days match that yet</strong>Try a different word, or clear the search to see all of Week 1.</div>';
+      return;
+    }
+    grid.innerHTML = list.map(function(d){
+      var badgeCls = d.today ? "today" : "";
+      var badgeTxt = "Day " + d.day + (d.today ? " \u00b7 Today" : "");
+      return '<button type="button" class="day-card' + (d.day === currentDay && !byId("reader").hidden ? " selected" : "") + '" data-day="' + d.day + '" aria-label="Open Day ' + d.day + ': ' + esc(d.title) + '">' +
+        '<span class="day-badge ' + badgeCls + '">' + badgeTxt + '</span>' +
+        '<span class="dc-main"><h3>' + esc(d.title) + '</h3>' +
+        '<p class="dc-ref">' + esc(d.ref) + ' \u00b7 ' + esc(d.shortDate) + '</p>' +
+        '<p class="dc-excerpt">' + esc(excerptFor(d)) + '</p>' +
+        '<span class="dc-status">Tap to read</span></span>' +
+      '</button>';
+    }).join("");
+
+    Array.prototype.forEach.call(grid.querySelectorAll(".day-card"), function(card){
+      var day = parseInt(card.getAttribute("data-day"), 10);
+      card.addEventListener("click", function(){
+        openDay(day, true);
+      });
+    });
+  }
+
+  /* ----- Reader ----- */
+  function renderReader(){
+    var d = DAYS[currentDay - 1];
+    var badge = byId("readerBadge");
+    badge.textContent = "Day " + d.day + (d.today ? " \u00b7 Today" : "");
+    badge.className = "day-badge" + (d.today ? " today" : "");
+    byId("readerTitle").textContent = d.title;
+    byId("readerMeta").textContent = d.date + " \u00b7 " + d.ref;
+    byId("readerBody").innerHTML = devotionalBodyHTML(d);
+    byId("prevBtn").disabled = currentDay <= 1;
+    byId("nextBtn").disabled = currentDay >= DAYS.length;
+    byId("prevBtn").style.opacity = currentDay <= 1 ? ".45" : "1";
+    byId("nextBtn").style.opacity = currentDay >= DAYS.length ? ".45" : "1";
+  }
+
+  function openDay(day, scroll){
+    currentDay = day;
+    var readerEl = byId("reader");
+    if (readerEl) readerEl.hidden = false;
+    renderReader();
+    renderGrid();
+    if (scroll){
+      readerEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  /* ----- Controls wiring ----- */
+  byId("searchInput").addEventListener("input", renderGrid);
+  byId("randomBtn").addEventListener("click", function(){
+    var pick = DAYS[Math.floor(Math.random() * DAYS.length)];
+    openDay(pick.day, true);
+  });
+  var todayLink = byId("todayMenuLink");
+  if (todayLink){
+    todayLink.addEventListener("click", function(e){
+      e.preventDefault();
+      var todaySection = byId("today");
+      if (todaySection) todaySection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+  byId("prevBtn").addEventListener("click", function(){ if (currentDay > 1) openDay(currentDay - 1, true); });
+  byId("nextBtn").addEventListener("click", function(){ if (currentDay < DAYS.length) openDay(currentDay + 1, true); });
+  document.addEventListener("keydown", function(e){
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+    if (byId("reader").hidden) return;
+    if (e.key === "ArrowLeft" && currentDay > 1) openDay(currentDay - 1, false);
+    if (e.key === "ArrowRight" && currentDay < DAYS.length) openDay(currentDay + 1, false);
+  });
+
+  renderToday();
+  renderGrid();
+})();
+</script>
+</body>
+</html>
